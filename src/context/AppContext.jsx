@@ -60,6 +60,15 @@ export function AppProvider({ children }) {
     toastTimers.current.set(id, timer);
   }, []);
 
+  const removeToast = useCallback((id) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+    const timer = toastTimers.current.get(id);
+    if (timer) {
+      clearTimeout(timer);
+      toastTimers.current.delete(id);
+    }
+  }, []);
+
   const toggleDarkMode = useCallback(() => {
     setDarkMode((prev) => !prev);
   }, []);
@@ -107,7 +116,8 @@ export function AppProvider({ children }) {
     addBooking,
     toasts,
     addToast,
-  }), [darkMode, toggleDarkMode, isLoggedIn, user, login, logout, wishlist, toggleWishlist, bookings, addBooking, toasts, addToast]);
+    removeToast,
+  }), [darkMode, toggleDarkMode, isLoggedIn, user, login, logout, wishlist, toggleWishlist, bookings, addBooking, toasts, addToast, removeToast]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
