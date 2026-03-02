@@ -11,7 +11,7 @@ export default function BookingConfirmation() {
   const { propertyId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const { darkMode } = useApp();
+  useApp();
 
   const bookingState = location.state;
   const property = listings.find((l) => l.id === Number(propertyId));

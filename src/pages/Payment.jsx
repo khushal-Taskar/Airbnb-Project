@@ -189,6 +189,7 @@ export default function Payment() {
         <div className="lg:col-span-2">
           {/* Payment method tabs */}
           <div className="flex flex-wrap gap-2 mb-6">
+            {/* eslint-disable-next-line no-unused-vars */}
             {PAYMENT_METHODS.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}

@@ -13,7 +13,7 @@ function CardSkeleton() {
   );
 }
 
-export default function PropertyCard({ listing, isWishlisted, onWishlistToggle, onClick, loading }) {
+export default function PropertyCard({ listing, isWishlisted, onWishlistToggle, loading }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const navigate = useNavigate();
 

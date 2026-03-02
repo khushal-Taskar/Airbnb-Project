@@ -4,7 +4,6 @@ import { useApp } from "./context/AppContext";
 import { listings } from "./data/listings";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import PropertyModal from "./components/PropertyModal";
 import AuthModal from "./components/AuthModal";
 import ToastContainer from "./components/ToastContainer";
 import BackToTop from "./components/BackToTop";
@@ -37,11 +36,10 @@ import {
 } from "./pages/InfoPages";
 
 export default function App() {
-  const { darkMode, toggleDarkMode, wishlist, toggleWishlist, isLoggedIn, login, user } = useApp();
+  const { darkMode, toggleDarkMode, wishlist, toggleWishlist, login } = useApp();
   const location = useLocation();
 
   const [activeModal, setActiveModal] = useState(null);
-  const [selectedProperty, setSelectedProperty] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
   const [priceRange, setPriceRange] = useState([0, 20000]);
@@ -73,11 +71,6 @@ export default function App() {
     document.body.style.overflow = activeModal ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [activeModal]);
-
-  const openProperty = useCallback((property) => {
-    setSelectedProperty(property);
-    setActiveModal("property");
-  }, []);
 
   const openAuth = useCallback(() => setActiveModal("auth"), []);
   const closeModal = useCallback(() => setActiveModal(null), []);
@@ -122,7 +115,6 @@ export default function App() {
                 listings={filteredListings}
                 wishlist={wishlist}
                 onWishlistToggle={toggleWishlist}
-                onPropertyClick={openProperty}
                 activeCategory={activeCategory}
                 setActiveCategory={setActiveCategory}
                 locationFilter={locationFilter}
@@ -164,16 +156,7 @@ export default function App() {
         <ToastContainer />
         <BackToTop />
 
-        {/* Modals */}
-        {activeModal === "property" && (
-          <PropertyModal
-            property={selectedProperty}
-            onClose={closeModal}
-            isLoggedIn={isLoggedIn}
-            onLoginClick={openAuth}
-          />
-        )}
-
+        {/* Auth Modal */}
         {activeModal === "auth" && (
           <AuthModal
             onClose={closeModal}
