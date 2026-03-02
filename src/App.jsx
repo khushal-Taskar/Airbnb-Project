@@ -88,8 +88,6 @@ export default function App() {
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
           onLoginClick={openAuth}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
         />
 
         <Home

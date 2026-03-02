@@ -5,7 +5,7 @@ export const listings = [
     images: [
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
     ],
     title: "Luxury Beachfront Villa",
     description: "Stunning oceanfront villa with private pool, direct beach access, and breathtaking sunset views. Perfect for families or groups looking for an upscale tropical escape.",
