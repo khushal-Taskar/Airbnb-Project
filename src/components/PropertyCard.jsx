@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Heart, Star } from "lucide-react";
 
 function CardSkeleton() {
@@ -12,8 +13,9 @@ function CardSkeleton() {
   );
 }
 
-export default function PropertyCard({ listing, isWishlisted, onWishlistToggle, onClick, loading }) {
+export default function PropertyCard({ listing, isWishlisted, onWishlistToggle, loading }) {
   const [imgLoaded, setImgLoaded] = useState(false);
+  const navigate = useNavigate();
 
   if (loading) return <CardSkeleton />;
 
@@ -22,7 +24,7 @@ export default function PropertyCard({ listing, isWishlisted, onWishlistToggle, 
   return (
     <div
       className="group cursor-pointer transition-transform duration-300 hover:-translate-y-1"
-      onClick={() => onClick(listing)}
+      onClick={() => navigate(`/property/${listing.id}`)}
     >
       {/* Image container */}
       <div className="relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-700 aspect-square">

@@ -6,7 +6,6 @@ export default function Home({
   listings,
   wishlist,
   onWishlistToggle,
-  onPropertyClick,
   activeCategory,
   setActiveCategory,
   locationFilter,
@@ -61,7 +60,6 @@ export default function Home({
                 listing={listing}
                 isWishlisted={wishlist.has(listing.id)}
                 onWishlistToggle={onWishlistToggle}
-                onClick={onPropertyClick}
                 loading={false}
               />
             ))}
