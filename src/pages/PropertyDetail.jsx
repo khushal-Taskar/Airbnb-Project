@@ -76,7 +76,7 @@ const mockReviews = [
 export default function PropertyDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { wishlist, toggleWishlist, isLoggedIn, addToast } = useApp();
+  const { wishlist, toggleWishlist, isLoggedIn, showAuthModal } = useApp();
 
   const property = listings.find((l) => l.id === Number(id));
 
@@ -125,7 +125,7 @@ export default function PropertyDetail() {
 
   const handleReserve = () => {
     if (!isLoggedIn) {
-      addToast("Please log in to reserve", "info");
+      showAuthModal();
       return;
     }
     navigate(`/booking/${property.id}`, {

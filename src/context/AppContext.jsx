@@ -19,6 +19,7 @@ export function AppProvider({ children }) {
   const [wishlist, setWishlist] = useState(() => new Set(loadFromStorage('wishlist', [])));
   const [bookings, setBookings] = useState(() => loadFromStorage('bookings', []));
   const [toasts, setToasts] = useState([]);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
 
   const toastTimers = useRef(new Map());
   const toastIdCounter = useRef(0);
@@ -84,6 +85,9 @@ export function AppProvider({ children }) {
     setIsLoggedIn(false);
   }, []);
 
+  const showAuthModal = useCallback(() => setAuthModalOpen(true), []);
+  const hideAuthModal = useCallback(() => setAuthModalOpen(false), []);
+
   const toggleWishlist = useCallback((id) => {
     setWishlist((prev) => {
       const next = new Set(prev);
@@ -117,7 +121,10 @@ export function AppProvider({ children }) {
     toasts,
     addToast,
     removeToast,
-  }), [darkMode, toggleDarkMode, isLoggedIn, user, login, logout, wishlist, toggleWishlist, bookings, addBooking, toasts, addToast, removeToast]);
+    authModalOpen,
+    showAuthModal,
+    hideAuthModal,
+  }), [darkMode, toggleDarkMode, isLoggedIn, user, login, logout, wishlist, toggleWishlist, bookings, addBooking, toasts, addToast, removeToast, authModalOpen, showAuthModal, hideAuthModal]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

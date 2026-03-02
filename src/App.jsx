@@ -36,10 +36,9 @@ import {
 } from "./pages/InfoPages";
 
 export default function App() {
-  const { darkMode, toggleDarkMode, wishlist, toggleWishlist, login } = useApp();
+  const { darkMode, toggleDarkMode, wishlist, toggleWishlist, login, authModalOpen, showAuthModal, hideAuthModal } = useApp();
   const location = useLocation();
 
-  const [activeModal, setActiveModal] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
   const [priceRange, setPriceRange] = useState([0, 20000]);
@@ -60,20 +59,17 @@ export default function App() {
   // Close modals on Escape
   useEffect(() => {
     const handleKey = (e) => {
-      if (e.key === "Escape") setActiveModal(null);
+      if (e.key === "Escape") hideAuthModal();
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, []);
+  }, [hideAuthModal]);
 
   // Prevent body scroll when a modal is open
   useEffect(() => {
-    document.body.style.overflow = activeModal ? "hidden" : "";
+    document.body.style.overflow = authModalOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
-  }, [activeModal]);
-
-  const openAuth = useCallback(() => setActiveModal("auth"), []);
-  const closeModal = useCallback(() => setActiveModal(null), []);
+  }, [authModalOpen]);
 
   const clearFilters = useCallback(() => {
     setActiveCategory("all");
@@ -104,7 +100,7 @@ export default function App() {
         <Navbar
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
-          onLoginClick={openAuth}
+          onLoginClick={showAuthModal}
         />
 
         <Routes>
@@ -157,12 +153,12 @@ export default function App() {
         <BackToTop />
 
         {/* Auth Modal */}
-        {activeModal === "auth" && (
+        {authModalOpen && (
           <AuthModal
-            onClose={closeModal}
+            onClose={hideAuthModal}
             onAuthSuccess={() => {
               login("User", "user@example.com");
-              closeModal();
+              hideAuthModal();
             }}
           />
         )}
