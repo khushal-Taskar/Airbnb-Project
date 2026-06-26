@@ -1,6 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Globe, Menu, User, Search, Moon, Sun, X, Heart, Minus, Plus } from "lucide-react";
+import {
+  Globe,
+  Menu,
+  User,
+  Search,
+  Moon,
+  Sun,
+  X,
+  Heart,
+  Minus,
+  Plus,
+  UserRound,
+  CalendarDays,
+  Home,
+  LogOut,
+} from "lucide-react";
 import { useApp } from "../context/AppContext";
 
 export default function Navbar({ darkMode, toggleDarkMode, onLoginClick }) {
@@ -44,7 +59,7 @@ export default function Navbar({ darkMode, toggleDarkMode, onLoginClick }) {
   }
 
   const menuItemClass =
-    "text-left w-full text-sm text-gray-700 dark:text-gray-300 px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors";
+    "flex w-full items-center gap-3 whitespace-nowrap rounded-lg px-3 py-2.5 text-left text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700";
 
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 shadow-sm">
@@ -178,27 +193,39 @@ export default function Navbar({ darkMode, toggleDarkMode, onLoginClick }) {
             </button>
 
             {userMenuOpen && (
-              <div className="absolute right-0 top-full mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg py-2 z-50">
+              <div className="absolute right-0 top-full mt-2 w-64 overflow-hidden rounded-2xl border border-gray-200 bg-white p-2 shadow-xl shadow-black/10 dark:border-gray-700 dark:bg-gray-800 dark:shadow-black/30 z-50">
                 {isLoggedIn ? (
                   <>
                     {user?.name && (
-                      <div className="px-4 py-2 text-sm font-semibold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700">
-                        {user.name}
+                      <div className="mb-1 flex items-center gap-3 border-b border-gray-200 px-3 pb-3 pt-2 dark:border-gray-700">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#ff385c] text-white">
+                          <User size={18} fill="white" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold text-gray-900 dark:text-gray-100">
+                            {user.name}
+                          </p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">Signed in</p>
+                        </div>
                       </div>
                     )}
                     <Link to="/profile" className={menuItemClass} onClick={() => setUserMenuOpen(false)}>
+                      <UserRound size={17} />
                       Profile
                     </Link>
                     <Link to="/wishlist" className={menuItemClass} onClick={() => setUserMenuOpen(false)}>
+                      <Heart size={17} />
                       Wishlist
                     </Link>
                     <Link to="/trips" className={menuItemClass} onClick={() => setUserMenuOpen(false)}>
+                      <CalendarDays size={17} />
                       My Trips
                     </Link>
                     <Link to="/host" className={menuItemClass} onClick={() => setUserMenuOpen(false)}>
+                      <Home size={17} />
                       Airbnb your home
                     </Link>
-                    <hr className="my-1 border-gray-200 dark:border-gray-700" />
+                    <hr className="my-2 border-gray-200 dark:border-gray-700" />
                     <button
                       onClick={() => {
                         logout();
@@ -206,6 +233,7 @@ export default function Navbar({ darkMode, toggleDarkMode, onLoginClick }) {
                       }}
                       className={menuItemClass}
                     >
+                      <LogOut size={17} />
                       Log Out
                     </button>
                   </>
